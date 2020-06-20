@@ -4,12 +4,13 @@
      "description": "simple application used next with typescript",
      "author": "Mohammed Al-Reai",
      "scripts": {
-          "dev": "npm run tailwind:css && next dev",
+          "dev": " next dev",
           "start": "npm run tailwind:css && next start",
-          "tailwind:css": "tailwind build src/tailwind.css -c tailwind.config.js -o src/index.css",
+          "tailwind:css": "tailwind build tailwind.css -c tailwind.config.js -o styles/tailwind.generated.css",
           "build": "npm run tailwind:css && next build"
      },
      "dependencies": {
+          "gray-matter": "^4.0.2",
           "next": "9.4.4",
           "react": "16.13.1",
           "react-dom": "16.13.1"
