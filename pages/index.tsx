@@ -1,5 +1,11 @@
 import * as React from "react";
 import { getAllNews } from "../lib/newsFeather";
+
+
+import BRAZIL from "./../Component/Home/BRAZIL";
+import MEXICO from "./../Component/Home/MEXICO";
+import SOUNDES from "../Component/Home/SOUNDES";
+import { LATAM } from "../Component/Home/LATAM";
 type TabSelections = "LATAM LEAGUE" | "BRAZIL" | "MEXICO" | "SOUNDES";
 
 interface TabsHeaderProps {
@@ -38,11 +44,11 @@ const moveTab = (left: number) => {
   itemRE.style.visibility = "visible";
 };
 const TabsHeaderTab: React.FC<TabsHeaderTabProps> = (props) => {
-  const MyRefs = React.useRef<HTMLElement>(null);
+  const MyRefs = React.useRef<HTMLLIElement>(null);
 
   React.useEffect(() => {
     if (props.isSelected) {
-      const BoundingRect = ref1.current.getBoundingClientRect();
+      const BoundingRect = MyRefs.current.getBoundingClientRect();
       moveTab(BoundingRect.left + BoundingRect.right / 2);
     }
   }, [props.isSelected]);
@@ -61,7 +67,7 @@ const TabsHeaderTab: React.FC<TabsHeaderTabProps> = (props) => {
 
 const TabsArr = ["T1", "T2", "T3", "T4"];
 const TabsHeader: React.FC<TabsHeaderProps> = (props) => (
-  <ul className="flex border-b space-x-3 justify-center border-b text-gray-800">
+  <ul className="flex  space-x-3 justify-center border-b text-gray-800">
     {TabsArr.map((item, index) => {
       <TabsHeaderTab
         onClick={() => props.setTabSelection(`EnumTabs.${item}` as EnumTabs)}
@@ -71,33 +77,33 @@ const TabsHeader: React.FC<TabsHeaderProps> = (props) => (
 );
 
 const Home = ({ allNews }: { allNews: any[] }) => {
+const Home = () => {
   const [tabSelection, setTabSelection] = React.useState<EnumTabs>(EnumTabs.T1);
   return (
     <>
       <TabsHeader setTabSelection={(tab: EnumTabs) => setTabSelection(tab)} tabSelection={tabSelection} />
-      {/* iff */}
+            {/* iff */}
+
       {(() => {
         switch (tabSelection) {
           case EnumTabs.T1:
-            return "SOME TEXT";
+            return <LATAM />;
             break;
           case EnumTabs.T2:
-            return "SOME TEXT";
+            return <BRAZIL />;
 
             break;
           case EnumTabs.T3:
-            return "SOME TEXT";
-
+            return <MEXICO />;
             break;
           case EnumTabs.T4:
-            return "SOME TEXT";
-
+            return <SOUNDES />;
             break;
 
-          default:
-            break;
-        }
-      })()}
+          default: <LATAM />;
+            break;}
+
+            })()}
       {allNews.map((i) => i.slug).join(" ")}
     </>
   );
